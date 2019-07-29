@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/photoShowCase/static/css/main.cbe78828.chunk.css",
+    "main.js": "/photoShowCase/static/js/main.0dad96ba.chunk.js",
+    "main.js.map": "/photoShowCase/static/js/main.0dad96ba.chunk.js.map",
+    "runtime~main.js": "/photoShowCase/static/js/runtime~main.ca544589.js",
+    "runtime~main.js.map": "/photoShowCase/static/js/runtime~main.ca544589.js.map",
+    "static/css/2.510409cd.chunk.css": "/photoShowCase/static/css/2.510409cd.chunk.css",
+    "static/js/2.d84687f8.chunk.js": "/photoShowCase/static/js/2.d84687f8.chunk.js",
+    "static/js/2.d84687f8.chunk.js.map": "/photoShowCase/static/js/2.d84687f8.chunk.js.map",
+    "index.html": "/photoShowCase/index.html",
+    "precache-manifest.56396d763521396d08e70010262ded68.js": "/photoShowCase/precache-manifest.56396d763521396d08e70010262ded68.js",
+    "service-worker.js": "/photoShowCase/service-worker.js",
+    "static/css/2.510409cd.chunk.css.map": "/photoShowCase/static/css/2.510409cd.chunk.css.map",
+    "static/css/main.cbe78828.chunk.css.map": "/photoShowCase/static/css/main.cbe78828.chunk.css.map",
+    "static/media/rasel-vai.jpg": "/photoShowCase/static/media/rasel-vai.ebab618f.jpg"
+  }
+}
