@@ -8,7 +8,7 @@ export default class Footer extends Component {
                     <div className="row">
                         <div className="col-md-12 text-center">
                             <div className="copyright-text">
-                                <h3>PhotoShowCase@info.com</h3>
+                                <h3>info@photoshowcase.com</h3>
                                 <ul className="footer-menu social-icon">
                                   <li>
                                     <a href="http//:facebook.com"><i className="fab fa-facebook-f"></i></a>
@@ -18,7 +18,7 @@ export default class Footer extends Component {
                                     <a href="http//:youtube.com"><i className="fab fa-youtube"></i></a>
                                   </li>
                                 </ul>
-                                <p className="copyright">All right Reserved &copy; Shaon Kabir</p>
+                                <p className="copyright">All right Reserved &copy; Shaon Kabir </p>
                             </div>
                         </div>
                     </div>
