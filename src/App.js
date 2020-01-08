@@ -20,9 +20,7 @@ const App = () => {
 					<div className="row">
 						<div className="col">
 							<Switch>
-								<Route exact path="/" render={props => (
-									<LatestPhotos />
-								)}/>
+								<Route exact path="/" component={LatestPhotos} />
 								<Route path="/about" component={About} />
 								<Route path="/blog" component={Blog} />
 								<Route path="/Contact" component={Contact} />
