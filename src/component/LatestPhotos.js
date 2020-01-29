@@ -1,106 +1,111 @@
-import React,{Component} from 'react'
+import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 
-export default class LatestPhotos extends Component {
+const LatestPhotos = () => {
+	
+	// State
+	const [photos, setPhotos] = useState([]);
+	const [pageNo, setPageNo] = useState(1);
+	const [loading, setLoading] = useState(false);
+	const [serachQueary, setSearchQuery] = useState('');
+	const [search, setSearch] = useState(false);
+	const [totalPage, setTotalPage] = useState(0);
+	const [totalFound, setTotalFound] = useState(0);
+	
 
-	state = {
-		photos:[],
-		page:1,
-		loading: false,
-		search: false,
-		serach_Queary: ''
-	}
-	componentDidMount() {
-		axios.get('https://api.unsplash.com/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&page='+this.state.page)
-		.then(res => this.setState({
-			photos: res.data,
-			page:this.state.page +1,
-			loading: false
-		}))
+	useEffect(() => {
+		axios.get('https://api.unsplash.com/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&page='+pageNo)
+		.then(res => {
+			setPhotos(res.data);
+			setPageNo(pageNo+1);
+			setLoading(false);
+		})
 		window.scrollTo({
+			top:0,
+			behavior:'smooth'
+		})
+	},[])
+
+	
+	// Methods
+	const loadMore = (e) => {
+		axios.get('https://api.unsplash.com/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&page='+pageNo)
+		.then(res => {
+			setPhotos(res.data);
+			setPageNo(pageNo+1);
+			setLoading(false);
+		})
+		window.scrollTo({
+			top:0,
+			behavior:'smooth'
+		})
+	}
+
+
+	const searchQueary = (e) => {
+		setSearchQuery(e.target.value)
+	}
+
+	const searchTrigger = (e) => {
+		axios.get('https://api.unsplash.com/search/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&query='+serachQueary+'&page='+pageNo)
+			.then(res => {
+				setPhotos(res.data.results);
+				setPageNo(2);
+				setLoading(false);
+				setSearch(true);
+				setTotalFound(res.data.total);
+				setTotalPage(res.data.total_pages);
+			})
+		e.preventDefault()
+	}
+
+	const loadMoreSearchBtn = (e) => {
+		axios.get('https://api.unsplash.com/search/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&query='+serachQueary+'&page='+pageNo)
+			.then(res => {
+				setPhotos(res.data.results);
+				setPageNo(pageNo+1);
+				setLoading(false);
+				setSearch(true)
+			});
+			window.scrollTo({
 			top:0,
 			behavior:'smooth'
 		})
 	}
 	
-	loadMore = (e) => {
-		axios.get('https://api.unsplash.com/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&page='+this.state.page)
-		.then(res => this.setState({
-			photos: res.data,
-			page:this.state.page +1,
-			loading: false
-		}))
-		window.scrollTo({
-			top:0,
-			behavior:'smooth'
-		})
-	}
 
-
-	searchQueary = (e) => {
-		this.setState({
-			serach_Queary: e.target.value
-		})
-	}
-
-	searchTrigger = (e) => {
-		axios.get('https://api.unsplash.com/search/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&query='+this.state.serach_Queary+'&page='+this.state.page)
-			.then(res => this.setState( {
-				photos: res.data.results,
-				totalPage: res.data.total_pages,
-				totalFound: res.data.total,
-				page:2,
-				loading: false,
-				search: true
-			}))
-		e.preventDefault()
-	}
-
-	loadMoreSearchBtn = (e) => {
-		axios.get('https://api.unsplash.com/search/photos/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5&per_page=16&query='+this.state.serach_Queary+'&page='+this.state.page)
-			.then(res => this.setState( {
-				photos: res.data.results,
-				page:this.state.page + 1,
-				loading: false,
-				search: true
-			}))
-		window.scrollTo({
-			top:0,
-			behavior:'smooth'
-		})
-	}
-	render() {
-
-		let searchHeading = ''
+	// Logic
+	let searchHeading = ''
 		let searchBtnMarkup = ''
-		let totalPage = ''
-		if(this.state.search) {
-			searchHeading = <h3>You searched with <i>{this.state.serach_Queary}</i></h3>
-			searchBtnMarkup = <button onClick={this.loadMoreSearchBtn} className="btn btn-success">Load Page {this.state.page}</button>
-			totalPage = <p>Total Found {this.state.totalFound} | page {this.state.page -1} of {this.state.totalPage}</p>
+		let totalPageFound = ''
+		if(search) {
+			searchHeading = <h3>You searched with <i>{serachQueary}</i></h3>
+			searchBtnMarkup = <button onClick={loadMoreSearchBtn} className="btn btn-success">Load Page {pageNo}</button>
+			totalPageFound = <p>Total Found {totalFound} | page {pageNo -1} of {totalPageFound}</p>
 
 		} else {
-			searchHeading = <h3>Lates Photos</h3>
-			searchBtnMarkup = <button onClick={this.loadMore} className="btn btn-success">Load Page {this.state.page}</button>
-			totalPage = ''
+			searchHeading = <h3>Latest Photos</h3>
+			searchBtnMarkup = <button onClick={loadMore} className="btn btn-success">Load Page {pageNo}</button>
+			totalPageFound = ''
 		}
 
-		if(this.state.loading) {
+		if(loading) {
 			return (
 				<div className="row loading text-center"><div className="col">Loading</div></div>
 			)
 		}
 
-		return (
-			<React.Fragment>
+
+	return (
+		<React.Fragment>
 				<div className="row headingText">
 					<div className="col-md-6">
 						{searchHeading}
-						{totalPage}
+						{totalPageFound}
 					</div>
 					<div className="col-md-6 text-right">
-	                    <form onSubmit={this.searchTrigger}>
-	                        <input type="text" onChange={this.searchQueary} placeholder="Search Keyword"/>
+	                    <form onSubmit={searchTrigger}>
+	                        <input type="text" onChange={searchQueary} placeholder="Search Keyword"/>
 	                        <input type="submit" value="Search"/>
 	                    </form>
 	                 </div>	
@@ -108,7 +113,7 @@ export default class LatestPhotos extends Component {
 
                  <div className="row">
 				{
-					this.state.photos.map((photo) => (
+					photos.map((photo) => (
 						<div className="col-lg-3" key={photo.id}>
 							<div className="single-photo-item">
 								<a className="d-block" href={'photo/photos?id=' + photo.id}>
@@ -134,11 +139,9 @@ export default class LatestPhotos extends Component {
 				
 
 			</React.Fragment>
-			
-		)
-	}
+	)
 }
 
-
+export default LatestPhotos;
 
                     
