@@ -1,13 +1,13 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink, Link} from 'react-router-dom'
 
-export default function Header() {
+function Header() {
     return (
         <header>
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 my-auto">
-                        <a href="/" className="logo">PhotoShowCase</a>
+                        <Link to="/" className="logo">PhotoShowCase</Link>
                     </div>
                     <div className="col-md-6 my-auto text-right">
                         <div className="mainmenu">
@@ -32,3 +32,4 @@ export default function Header() {
         </header>
     )
 }
+export default Header;
