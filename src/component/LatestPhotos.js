@@ -81,7 +81,7 @@ const LatestPhotos = () => {
 		if(search) {
 			searchHeading = <h3>You searched with <i>{serachQueary}</i></h3>
 			searchBtnMarkup = <button onClick={loadMoreSearchBtn} className="btn btn-success">Load Page {pageNo}</button>
-			totalPageFound = <p>Total Found {totalFound} | page {pageNo -1} of {totalPageFound}</p>
+			totalPageFound = <p>Total Found {totalFound} | page {pageNo -1} of {totalPage}</p>
 
 		} else {
 			searchHeading = <h3>Latest Photos</h3>
