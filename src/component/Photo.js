@@ -6,7 +6,6 @@ import axios from 'axios'
 const Photo = () => {
 
 	const [ photo, setPhoto ] = useState([]);
-	const [ loading, setLoading ] = useState(true);
 	const [ collection, setCollection ] = useState([]);
 
 	
@@ -20,7 +19,6 @@ const Photo = () => {
 		axios.get('https://api.unsplash.com/photos/' + photo_id + '/?client_id=9b9b346cab5c970858f3e878816d0e93ce091d5d617bf30bb62a44cea72f71c5')
 			.then(res => {
 				setPhoto(res.data);
-				setLoading(false);
 				setCollection(res.data.related_collections.results)
 			})
 			.catch(err => console.log(err));
@@ -48,8 +46,8 @@ const Photo = () => {
 							{photo.exif.model} </li> : '' }
 
 						{photo && photo ? <li>
-							<label htmlFor="regulation">Regulation: </label>{`${photo.
-							width} x ${photo.height}`} </li> : '' }
+							<label htmlFor="regulation">Regulation: </label>
+							{`${photo.width} x ${photo.height}`} </li> : '' }
 					</ul>
 					<a href="/" className="photo-info-btn">
 						<i className="fas fa-share"></i>
@@ -63,12 +61,13 @@ const Photo = () => {
 			<div className=" related">
 				{
 					collection.map(relatedInfo => {
-						relatedInfo.preview_photos.map(photo => (
-							<a href={photo.urls.small} key={photo.title}>
-								<img src={photo.urls.thumb} alt={photo.title}/>
-							</a>
-				 			
-						))
+						return(
+							relatedInfo.preview_photos.map(photo => (
+								<a href={photo.urls.small} key={photo.title}>
+									<img src={photo.urls.thumb} alt={photo.title}/>
+								</a>
+							))
+						)
 					})
 				}
 			</div>
