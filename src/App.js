@@ -13,7 +13,6 @@ import NotFound from './component/pages/NotFound';
 const App = () => {
 	return (
 		<Router>
-		<React.Fragment>
 			<Header/>
 			<div className="content-block">
 				<div className="container">
@@ -23,7 +22,7 @@ const App = () => {
 								<Route exact path="/" component={LatestPhotos} />
 								<Route path="/about" component={About} />
 								<Route path="/blog" component={Blog} />
-								<Route path="/Contact" component={Contact} />
+								<Route path="/contact" component={Contact} />
 								<Route path="/photo" component={Photo} />
 								<Route component={NotFound} />
 							</Switch>
@@ -32,7 +31,6 @@ const App = () => {
 				</div>
 			</div>
 			<Footer/>
-		</React.Fragment>
 		</Router>
 	)
 }
